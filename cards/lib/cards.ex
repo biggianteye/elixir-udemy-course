@@ -1,6 +1,6 @@
 defmodule Cards do
   @moduledoc """
-  Documentation for Cards.
+  Methods for creating and handling a deck of cards.
   """
 
   def create_deck do
@@ -40,6 +40,15 @@ defmodule Cards do
     end
   end
 
+  @doc """
+  Create a hand containing `hand_size` cards.
+
+  ## Examples
+
+      iex> {hand, deck} = Cards.create_hand(1)
+      iex> hand
+      ["9 of ♠"]
+  """
   def create_hand(hand_size) do
     create_deck()
     |> shuffle()
