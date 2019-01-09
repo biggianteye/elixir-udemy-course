@@ -20,6 +20,17 @@ defmodule Cards do
     Enum.shuffle(deck)
   end
 
+  @doc """
+  Check if the deck contains the given card.
+
+  ## Examples
+
+    iex> deck = Cards.create_deck
+    iex> Cards.contains?(deck, "9 of ♦")
+    true
+    iex> Cards.contains?(deck, "foo")
+    false
+  """
   def contains?(deck, card) do
     Enum.member?(deck, card)
   end
@@ -40,15 +51,15 @@ defmodule Cards do
     end
   end
 
-  @doc """
-  Create a hand containing `hand_size` cards.
+  # @doc """
+  # Create a hand containing `hand_size` cards.
 
-  ## Examples
+  # ## Examples
 
-      iex> {hand, deck} = Cards.create_hand(1)
-      iex> hand
-      ["9 of ♠"]
-  """
+  #     iex> {hand, deck} = Cards.create_hand(1)
+  #     iex> hand
+  #     ["9 of ♠"]
+  # """
   def create_hand(hand_size) do
     create_deck()
     |> shuffle()
