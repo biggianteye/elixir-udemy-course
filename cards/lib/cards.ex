@@ -25,11 +25,11 @@ defmodule Cards do
 
   ## Examples
 
-    iex> deck = Cards.create_deck
-    iex> Cards.contains?(deck, "9 of ♦")
-    true
-    iex> Cards.contains?(deck, "foo")
-    false
+      iex> deck = Cards.create_deck
+      iex> Cards.contains?(deck, "9 of ♦")
+      true
+      iex> Cards.contains?(deck, "foo")
+      false
   """
   def contains?(deck, card) do
     Enum.member?(deck, card)
