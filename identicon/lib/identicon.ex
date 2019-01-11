@@ -2,18 +2,20 @@ defmodule Identicon do
   def main(input) do
     input
     |> hash_input
+    |> pick_colour
   end
 
-  @doc """
-  Produces an MD5 hash of the given input as a list of bytes.
-
-  ## Examples
-
-      iex> Identicon.hash_input("Hello world!")
-      [134, 251, 38, 157, 25, 13, 44, 133, 246, 224, 70, 140, 236, 164, 42, 32]
-  """
   def hash_input(input) do
-    :crypto.hash(:md5, input)
+    hex = :crypto.hash(:md5, input)
     |> :binary.bin_to_list
+
+    %Identicon.Image{hex: hex}
+  end
+
+  # Pattern matching in the parameter list.
+  # This is receiving a param called "image" but also immediately doing pattern
+  # matching on it to grab the r/g/b values.
+  def pick_colour(%Identicon.Image{hex: [r, g, b | _]} = image) do
+    %Identicon.Image{image | colour: {r, g, b}}
   end
 end
