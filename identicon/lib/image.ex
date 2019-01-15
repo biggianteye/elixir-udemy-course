@@ -1,4 +1,5 @@
 defmodule Identicon.Image do
   defstruct hex: nil,
-            colour: nil
+            colour: nil,
+            grid: nil
 end
