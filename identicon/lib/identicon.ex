@@ -5,6 +5,7 @@ defmodule Identicon do
     |> pick_colour
     |> build_grid
     |> filter_odd_squares
+    |> build_pixel_map
   end
 
   def hash_input(input) do
@@ -51,5 +52,42 @@ defmodule Identicon do
     end
 
     %Identicon.Image{image | grid: grid}
+  end
+
+  @doc """
+  Convert grid positions on a 5x5 grid into absolute grid co-ordinates on a 250x250 pixel canvas.
+
+  Grid:
+
+  ```
+   0  1  2  3  4
+   5  6  7  8  9
+  10 11 12 13 14
+  15 16 17 18 19
+  20 21 22 23 24
+  ```
+
+  ## Examples
+
+      iex> Identicon.build_pixel_map(%Identicon.Image{ grid: [{0, 1}, {0, 8}]})
+      %Identicon.Image{
+        colour: nil,
+        grid: [{0, 1}, {0, 8}],
+        hex: nil,
+        pixel_map: [{{50, 0}, {100, 50}}, {{150, 50}, {200, 100}}]
+      }
+  """
+  def build_pixel_map(%Identicon.Image{grid: grid} = image) do
+    pixel_map = Enum.map grid, fn({_code, index}) ->
+      horizontal = rem(index, 5) * 50
+      vertical = div(index, 5) * 50
+
+      top_left = {horizontal, vertical}
+      bottom_right = {horizontal + 50, vertical + 50}
+
+      {top_left, bottom_right}
+    end
+
+    %Identicon.Image{image | pixel_map: pixel_map}
   end
 end
