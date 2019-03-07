@@ -27,4 +27,7 @@ defmodule Discuss.TopicController do
     topics = Repo.all(Topic)
     render conn, "index.html", topics: topics
   end
+
+  def edit(conn, _params) do
+  end
 end
